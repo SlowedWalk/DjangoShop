@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     # Local INSTALLED_APPS
     'rest_framework',
+    'shop'
 ]
 
 MIDDLEWARE = [
