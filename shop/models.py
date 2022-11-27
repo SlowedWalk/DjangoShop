@@ -11,6 +11,10 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        ordering = ['-created_at']
+        verbose_name_plural = 'Categories'
+
 
 class Product(models.Model):
     name = models.CharField(max_length=50)
@@ -20,6 +24,10 @@ class Product(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-created_at']
+        verbose_name_plural = 'Products'
 
     def __str__(self):
         return self.name
@@ -34,6 +42,10 @@ class Article(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-created_at']
+        verbose_name_plural = 'Articles'
 
     def __str__(self):
         return self.name
