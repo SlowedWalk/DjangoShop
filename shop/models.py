@@ -1,4 +1,4 @@
-from django.db import models
+from django.db import models, transaction
 
 
 class Category(models.Model):
@@ -14,6 +14,25 @@ class Category(models.Model):
     class Meta:
         ordering = ['-created_at']
         verbose_name_plural = 'Categories'
+
+    @transaction.atomic
+    def disable(self):
+        # We define our action to be accessible only via POST method
+        # it includes the details as it can disable a category
+
+        # We equally put in placed an actomic transaction as many request will be executed
+        # In cas of any error, we revert to the previos state
+
+        # Deactivate the category
+        if self.active is False:
+            # We do nothing if the category is already deactivated
+            return
+
+        self.active = False
+        self.save()
+
+        # Deactivate the category's prodcuts
+        self.products.update(active=False)
 
 
 class Product(models.Model):
